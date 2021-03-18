@@ -7,6 +7,8 @@ public class md5_crack_main {
         
         //Mode to add a user to a text file
         if(args[0].equals("-a") || args[0].equals("--adduser")){
+
+            //Quit the program if the required fields are empty
             try{
                 String name = args[1];
                 String pass = args[2];
@@ -15,9 +17,6 @@ public class md5_crack_main {
                 System.out.print("Usage: -a|--adduser [username] [password]");
                 System.exit(0);
             }
-            System.out.println(args[1]+" "+args[2]);
-
-            File outputfile = new File("user_store.txt");
         }
     }
 }
