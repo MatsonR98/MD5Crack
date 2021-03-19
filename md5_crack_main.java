@@ -54,4 +54,11 @@ public class md5_crack_main {
         }
         
     }
+
+    private static String md5(String word){
+        String md5 = "";
+
+
+        return md5;
+    }
 }
