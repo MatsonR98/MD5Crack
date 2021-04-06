@@ -15,6 +15,12 @@ public class project_main {
                     String user = args[1];
                     String pass = args[2];
                     boolean status = user_add.user_add(user, pass);
+                    if(status){
+                        System.out.println("\nSuccess!");
+                    }
+                    else{
+                        System.out.println("\nTask failed.");
+                    }
                 }
                 catch(IndexOutOfBoundsException invalidIndex){
                     System.out.println("Input does not match required arguments. Usage: Add user and password: \"-a [user] [password]\"");
