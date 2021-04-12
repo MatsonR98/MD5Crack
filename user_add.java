@@ -4,6 +4,21 @@ public class user_add{
     public static boolean user_add(String username, String password){
         System.out.println("Adding user "+username+"...");
         try{
+            BufferedReader reader = new BufferedReader(new FileReader("userList.txt"));
+            String line;
+            while((line = reader.readLine()) != null){
+                String credentials[] = line.split("\t");
+                if(credentials[0].equals(username)){
+                    System.out.println("User already exists.");
+                    return false;
+                }
+            }
+            reader.close();
+        }
+        catch(Exception e){
+
+        }
+        try{
             BufferedWriter userList = new BufferedWriter(new FileWriter("userList.txt", true));
             String passwordHash = md5_hash.md5_hash(password);
             userList.write(username + "\t" + passwordHash);

@@ -31,6 +31,13 @@ public class project_main {
                 try{
                     String user = args[1];
                     String pass = args[2];
+                    boolean status = user_login.user_login(user, pass);
+                    if(status){
+                        System.out.println("\nLogin Succeeded as "+user+".");
+                    }
+                    else{
+                        System.out.println("\nLogin failed.");
+                    }
                 }
                 catch(IndexOutOfBoundsException invalidIndex){
                     System.out.println("Input does not match required arguments. Usage: Login as user: \"-l [user] [password]\"");
