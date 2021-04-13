@@ -56,6 +56,14 @@ public class project_main {
             else if(args[0].equals("-c")){
                 try{
                     String user = args[1];
+                    String password = password_cracker.password_cracker(user);
+                    if(password != null){
+                        System.out.println("Password for user "+user+" is \""+password+"\".");
+                    }
+                    else{
+                        System.out.println("Password not found.");
+                    }
+                    
                 }
                 catch(IndexOutOfBoundsException invalidIndex){
                     System.out.println("Input does not match required arguments. Usage: Crack password for specific user: \"-c [user]\"");
