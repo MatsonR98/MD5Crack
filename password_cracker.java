@@ -1,7 +1,4 @@
 import java.util.*;
-
-import javax.print.attribute.standard.Media;
-
 import java.io.*;
 public class password_cracker {
 
@@ -48,6 +45,7 @@ public class password_cracker {
         return null;
     }
 
+
     //Try and find a type 1 password
     private static String Type1(String passwordHash) throws FileNotFoundException, IOException{
         BufferedReader dictReader = new BufferedReader(new FileReader(DICT));
@@ -65,20 +63,31 @@ public class password_cracker {
         return null;
     }
     
+
+
     //Try and find a type 2 password
     private static String Type2(String passwordHash) throws FileNotFoundException, IOException{
         BufferedReader dictSort = new BufferedReader(new FileReader(DICT));
         BufferedWriter file = null;
         String cur = "";
+        TreeSet[] wordlist = new TreeSet<?>[28];
 
-        System.out.println("Password files sorted here.");
-        while((cur = dictSort.readLine())!= null){
-            file = new BufferedWriter(new FileWriter("length"+cur.length()+".txt", true));
-            file.write(cur);
-            file.newLine();
-            file.close();
+        for(int ct = 0; ct < wordlist.length; ct++){
+            wordlist[ct] = new TreeSet<String>();
         }
 
+        //Add each word to a bucket based on its length.
+        System.out.println("Sorting passwords into buckets...");
+        while((cur = dictSort.readLine())!= null){
+            wordlist[cur.length()-1].add(cur);
+        }
+
+        for(int setnum = 0; setnum<28; setnum++){
+            Iterator itr = wordlist[setnum].iterator();
+            while(itr.hasNext()){
+                String str = (String) itr.next();
+            }
+        }
         dictSort.close();
         System.out.println("Type 2 passwords exhausted.");
         return null;
