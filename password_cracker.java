@@ -1,11 +1,8 @@
 import java.util.*;
-
-import javax.print.attribute.standard.Media;
-
 import java.io.*;
 public class password_cracker {
 
-    public static final String[] SPECIAL_CHARS = {"@", "#", "$", "%", "&"};
+    public static final String[] SPECIAL_CHARS = {"","@","#","$","%","&","0","1","2","3","4","5","6","7","8","9"};
     public static String USERLIST = "userList.txt";
     public static String DICT = "dictionary.txt";
 
@@ -48,6 +45,7 @@ public class password_cracker {
         return null;
     }
 
+
     //Try and find a type 1 password
     private static String Type1(String passwordHash) throws FileNotFoundException, IOException{
         BufferedReader dictReader = new BufferedReader(new FileReader(DICT));
@@ -65,21 +63,11 @@ public class password_cracker {
         return null;
     }
     
+
+
     //Try and find a type 2 password
     private static String Type2(String passwordHash) throws FileNotFoundException, IOException{
         BufferedReader dictSort = new BufferedReader(new FileReader(DICT));
-        BufferedWriter file = null;
-        String cur = "";
-
-        System.out.println("Password files sorted here.");
-        while((cur = dictSort.readLine())!= null){
-            file = new BufferedWriter(new FileWriter("length"+cur.length()+".txt", true));
-            file.write(cur);
-            file.newLine();
-            file.close();
-        }
-
-        dictSort.close();
         System.out.println("Type 2 passwords exhausted.");
         return null;
     }
