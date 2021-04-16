@@ -44,15 +44,25 @@ public class project_main {
                 }
                 System.exit(0);
             }
+
             else if(args[0].equals("-p")){
                 try{
                     String pass = args[1];
+                    String type = password_evaluator.password_evaluator(pass);
+                    System.out.println("This password is a "+type+".");
                 }
                 catch(IndexOutOfBoundsException invalidIndex){
                     System.out.println("Input does not match required arguments. Usage: Check password complexity: \"-p [password]\"");
                 }
+                catch(FileNotFoundException f){
+                    System.out.println("\"dictionary.txt\" not found.");
+                }
+                catch(IOException io){
+                    System.out.println("An IO exception occurred.");
+                }
                 System.exit(0);
             }
+
             else if(args[0].equals("-c")){
                 try{
                     String user = args[1];
