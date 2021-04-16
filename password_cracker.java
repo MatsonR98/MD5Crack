@@ -1,8 +1,9 @@
 import java.util.*;
 import java.io.*;
+import java.lang.*;
 public class password_cracker {
 
-    public static final String[] SPECIAL_CHARS = {"","@","#","$","%","&","0","1","2","3","4","5","6","7","8","9"};
+    public static final String[] CH = {"","@","#","$","%","&","0","1","2","3","4","5","6","7","8","9"};
     public static String USERLIST = "userList.txt";
     public static String DICT = "dictionary.txt";
 
@@ -68,6 +69,30 @@ public class password_cracker {
     //Try and find a type 2 password
     private static String Type2(String passwordHash) throws FileNotFoundException, IOException{
         BufferedReader dictSort = new BufferedReader(new FileReader(DICT));
+        TreeSet wordBucket = new TreeSet<String>();
+        String cur = "";
+        while((cur = dictSort.readLine()) != null){
+            wordBucket.add(cur);
+        }
+        cur = "";
+        Iterator<String> it = wordBucket.iterator();
+        while(it.hasNext()){
+            cur = it.next();
+            for(int outerRight=0; outerRight<6; outerRight++){
+                for(int outerLeft=0; outerLeft<6; outerLeft++){
+                    for(int innerRight=0; innerRight<6; innerRight++){
+                        for(int innerLeft=0; innerLeft<6; innerLeft++){
+                            String guess = CH[outerLeft]+CH[innerLeft]+cur+CH[innerRight]+CH[outerRight];
+                            
+                            String hash = md5_hash.md5_hash(guess);
+                            if(hash.equals(passwordHash)){
+                                return guess;
+                            }
+                        }
+                    }
+                }
+            }
+        }
         System.out.println("Type 2 passwords exhausted.");
         return null;
     }

@@ -4,11 +4,14 @@ import java.util.*;
 public class project_main {
     public static void main(String[] args){
         System.out.println("\n--------------------------------------\nINFSCI 1620 Project by Ryan Matson\n--------------------------------------\n");
+        //Instructions for usage
         if(args.length == 0){
             System.out.println("Account options:\n\tAdd user and password: \"-a [user] [password]\"\n\tLogin as user: \"-l [user] [password]\"\n");
             System.out.println("Crack password for specific account: \"-c [user]\"");
             System.out.println("Check password complexity: \"-p [password]\"\n");
         }
+
+        //Add an account
         else{
             if(args[0].equals("-a")){
                 try{
@@ -27,11 +30,13 @@ public class project_main {
                 }
                 System.exit(0);
             }
+
+            //Login to account using name and password
             else if(args[0].equals("-l")){
                 try{
                     String user = args[1];
                     String pass = args[2];
-                    boolean status = user_login.user_login(user, pass);
+                    boolean status = user_login.user_login(user, pass); //Pass credentials to login function
                     if(status){
                         System.out.println("\nLogin Succeeded as "+user+".");
                     }
