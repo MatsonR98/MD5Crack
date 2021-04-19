@@ -20,7 +20,7 @@ public class password_evaluator {
             if(strippedPass.equals(password)){ //Compare the stripped password to the original password; if nothing has been stripped, then it is a weak password.
                 return "weak password";
             }
-            else{ //If the password was stripped of characters and still mateches, then it is a moderate password.
+            else{ //If the password was stripped of characters and still matches, then it is a moderate password.
                 return "moderate password";
             }
         }

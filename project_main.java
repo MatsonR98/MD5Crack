@@ -50,11 +50,12 @@ public class project_main {
                 System.exit(0);
             }
 
+            //Test a password for strength
             else if(args[0].equals("-p")){
                 try{
                     String pass = args[1];
                     String type = password_evaluator.password_evaluator(pass);
-                    System.out.println("This password is a "+type+".");
+                    System.out.println("The password \""+pass+"\" is a "+type+".");
                 }
                 catch(IndexOutOfBoundsException invalidIndex){
                     System.out.println("Input does not match required arguments. Usage: Check password complexity: \"-p [password]\"");
@@ -68,6 +69,7 @@ public class project_main {
                 System.exit(0);
             }
 
+            //Attempt to crack a user's password
             else if(args[0].equals("-c")){
                 try{
                     String user = args[1];
