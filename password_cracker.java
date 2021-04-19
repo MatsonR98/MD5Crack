@@ -37,6 +37,7 @@ public class password_cracker {
             }
             if((pass = Type2(hash)) != null){
                 System.out.println("Password is a Type 2 password.");
+
                 return pass;
             }
         }
@@ -53,7 +54,9 @@ public class password_cracker {
 
         String cur = "";
 
+        //Use a bufferedreader to iterate through the dictionary list
         while((cur = dictReader.readLine()) != null){
+            //Hash the current password and compare them to the hash
             if(md5_hash.md5_hash(cur).equals(passwordHash)){ 
                 dictReader.close();
                 return cur;
@@ -68,24 +71,30 @@ public class password_cracker {
 
     //Try and find a type 2 password
     private static String Type2(String passwordHash) throws FileNotFoundException, IOException{
+        //Create a new BufferedReader to open dictionary.txt
         BufferedReader dictSort = new BufferedReader(new FileReader(DICT));
+        //Create a new TreeSet to store the words in
         TreeSet wordBucket = new TreeSet<String>();
         String cur = "";
         while((cur = dictSort.readLine()) != null){
             wordBucket.add(cur);
         }
+        
+        //Reuse the cur placeholder as part of the Type 2 cracker
         cur = "";
-        Iterator<String> it = wordBucket.iterator();
-        while(it.hasNext()){
-            cur = it.next();
-            for(int outerRight=0; outerRight<6; outerRight++){
-                for(int outerLeft=0; outerLeft<6; outerLeft++){
-                    for(int innerRight=0; innerRight<6; innerRight++){
-                        for(int innerLeft=0; innerLeft<6; innerLeft++){
+        
+        //For each word, run through each word and attempt all permutations of characters
+        //Structure: CH[outerLeft]+CH[innerLeft]+cur+CH[innerRight]+CH[outerRight]
+        for(int outerLeft=0; outerLeft<CH.length; outerLeft++){
+            for(int innerLeft=0; innerLeft<CH.length; innerLeft++){
+                for(int outerRight=0; outerRight<CH.length; outerRight++){
+                    for(int innerRight=0; innerRight<CH.length; innerRight++){
+                        Iterator<String> it = wordBucket.iterator();
+                        while(it.hasNext()){
+                            cur = it.next();
                             String guess = CH[outerLeft]+CH[innerLeft]+cur+CH[innerRight]+CH[outerRight];
-                            
-                            String hash = md5_hash.md5_hash(guess);
-                            if(hash.equals(passwordHash)){
+                            String guessHash = md5_hash.md5_hash(guess);
+                            if(guessHash.equals(passwordHash)){
                                 return guess;
                             }
                         }
@@ -93,6 +102,7 @@ public class password_cracker {
                 }
             }
         }
+        //This point will not be reached if the password is successfully cracked.
         System.out.println("Type 2 passwords exhausted.");
         return null;
     }

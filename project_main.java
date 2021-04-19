@@ -71,6 +71,7 @@ public class project_main {
             else if(args[0].equals("-c")){
                 try{
                     String user = args[1];
+                    long start = System.currentTimeMillis();
                     String password = password_cracker.password_cracker(user);
                     if(password != null){
                         System.out.println("Password for user "+user+" is \""+password+"\".");
@@ -78,7 +79,10 @@ public class project_main {
                     else{
                         System.out.println("Password not found.");
                     }
-                    
+                    long end = System.currentTimeMillis();
+                    long elapsedTime = (end - start)/1000;
+
+                    System.out.println("This password took "+elapsedTime+" seconds to crack.");
                 }
                 catch(IndexOutOfBoundsException invalidIndex){
                     System.out.println("Input does not match required arguments. Usage: Crack password for specific user: \"-c [user]\"");
